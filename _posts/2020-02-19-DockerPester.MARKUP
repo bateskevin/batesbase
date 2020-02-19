@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "DockerPester - Run your Pester tests crossplatform locally!"
+title:  "DockerPester"
 date:   2020-02-19 08:56:01 +0100
 categories: Powershell
 ---

@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   This Blog is all Powershell. I'll share with you what I Learned 
   on my way as an Engineer and hopefully save you some time that 
   I wasted on researching stuff. :)
-baseurl: "batesbase" # the subpath of your site, e.g. /blog
+baseurl: "/batesbase" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: _bateskevin
 github_username:  bateskevin 
