@@ -8,9 +8,9 @@ permalink: Powershell/2020/02/19/DockerPester.md/
 
 # Docker Pester - Run crossplatform tests locally!
 
-Recently there have been some changes in my Backpack concerning the portable system that I carry with myself to perform my job. 
+Recently there have been some changes in my backpack concerning the portable system that I carry with myself to perform my job. 
 I have had an HP laptop handed to me on my first day of work at my current company (about two years ago) and I actually had no problems
-whatsoever at the start. Now this Laptop lived for about 3/4 years before it decided to stop working. My Laptop would not turn on and I could not work for 1.5 days
+whatsoever at the start. Now this laptop lived for about 3/4 years before it decided to stop working. My Laptop would not turn on and I could not work for 1.5 days
 cause we had no spare laptops at the time. 
 
 Now that was a bummer.. My company replaced my system with the same model and since I actually liked the Laptop I was handed in the first
@@ -18,7 +18,7 @@ place I was excited to have another one of these. Another 3/4 years down the lin
 
 No...
 
-As I learned a little while after receiving my 3rd laptop (still same modell) I found out that my lease was reset both times I received a replacement and I thought that I would be stuck in an endless HP Laptop loop, where I would get a new one every 3/4 years. 
+As I learned a little while after receiving my 3rd laptop (still same model) I found out that my lease was reset both times I received a replacement and I thought that I would be stuck in an endless HP Laptop loop, where I would get a new one every 3/4 years. 
 
 Now I'm in luck that I have good people above me that allowed me to ditch that HP misery (Not at all implying that's the case for every HP Laptop!) and order myself my own System to be able to work on that. So I started thinking what I would like to use. It would have to perform well since I do developmemt on it and I also am fond of big and nice screens, since I work in a different spot nearly every day and I don't always have the possibility for external screens. Ah and I code Powershell. 
 
