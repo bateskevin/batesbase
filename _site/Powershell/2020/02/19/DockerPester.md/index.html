@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>DockerPester | batesbase</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="DockerPester" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Docker Pester - Run crossplatform tests locally!" />
+<meta property="og:description" content="Docker Pester - Run crossplatform tests locally!" />
+<link rel="canonical" href="/batesbase/Powershell/2020/02/19/DockerPester.md/" />
+<meta property="og:url" content="/batesbase/Powershell/2020/02/19/DockerPester.md/" />
+<meta property="og:site_name" content="batesbase" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-19T08:56:01+01:00" />
+<script type="application/ld+json">
+{"headline":"DockerPester","dateModified":"2020-02-19T08:56:01+01:00","url":"/batesbase/Powershell/2020/02/19/DockerPester.md/","datePublished":"2020-02-19T08:56:01+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"/batesbase/Powershell/2020/02/19/DockerPester.md/"},"description":"Docker Pester - Run crossplatform tests locally!","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/batesbase/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/batesbase/feed.xml" title="batesbase" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/batesbase/">batesbase</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/batesbase/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">DockerPester</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-02-19T08:56:01+01:00" itemprop="datePublished">Feb 19, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="docker-pester---run-crossplatform-tests-locally">Docker Pester - Run crossplatform tests locally!</h1>
+
+<p>In this Blogpost you’ll learn how to run the Pester tests for your Powershell project on multiple operating systems locally.</p>
+
+<p><a href="https://github.com/bateskevin/DockerPester">DockerPester</a> makes this possible.</p>
+
+<h2 id="what-you-need-to-do-this">What you need to do this</h2>
+
+<p>there are a few prerequisites you should install to use</p>
+
+<h3 id="docker-">Docker <img src="https://static1.squarespace.com/static/5bfe78fe9d5abb94164ed3af/5c0f8b3c4fa51a03ef54a96b/5c112c188a922d6c219dcad6/1556553088561/docker-whale.png?format=1500w" alt="DockerLogo" height="50px" width="50px" /></h3>
+
+<p>Docker is a containerization software that let’s you run containers on your machine.</p>
+
+<p>Install it on your platform. It is available for Linux, MacOS and Windows here: <a href="https://hub.docker.com/?overlay=onboarding">Download Docker</a></p>
+
+<h3 id="docker-context">Docker Context</h3>
+
+<p>I’m by no means a specialist when it comes to docker. Actually I only just started with docker myself, but one of
+the things I learned about it, is that you can pull docker images only if they fit the architecture of your OS.</p>
+
+<p>So standardwise you will not be able to run a Linux container on your Windows machine of vice versa. On your Mac
+you will be able to run Linux containers, but not Windows Containers.</p>
+
+<h3 id="switch-context-on-windows">Switch Context on Windows</h3>
+
+<p>On Docker for Windows you can switch your Context once you’re running Docker Desktop very easily.</p>
+
+<p>Click the Arrow up in right bottom corner:</p>
+
+<p><img src="https://docs.docker.com/docker-for-windows/images/whale-icon-systray-hidden.png" alt="arrow" /></p>
+
+<p>And then Switch the Context by Clicking on ‘Switch to Winows Containers’ or ‘Switch to Linux Containers’ if Windows is already active:</p>
+
+<p><img src="https://docs.docker.com/docker-for-windows/images/docker-menu-settings.png" alt="arrow" /></p>
+
+<p>This is how you switch between linux and windows containers on Windows.</p>
+
+<h3 id="switch-context-on-mac">Switch Context on Mac</h3>
+
+<p>There is a possibility to add a Windows docker Context on MacOS.</p>
+
+<p>I will not describe this in detail in this blog post, since it’s already documented very well on Github by Stefan Scherer Here:</p>
+
+<p><a href="https://github.com/StefanScherer/windows-docker-machine#working-on-macos">Add Docker Windows Context on MacOS</a></p>
+
+<p>If you follow this documentation you will have a Windows Context called “2019-box”</p>
+
+<h1 id="dockerpester">DockerPester</h1>
+
+<p>Ok so now you should have installed Docker on your machine, which makes you ready to use DockerPester.</p>
+
+<h2 id="installing-dockerpester">Installing DockerPester</h2>
+
+<p>The Module is currently not available on the Gallery. So at the moment the only option of using it you have is to fork and clone the repo.</p>
+
+<h2 id="first-run-of-dockerpester">First run of DockerPester</h2>
+
+<p>So to start off you just need a Powershell Project of yours with some Pester Tests. Create a Hashtable that 
+contains the following Key Value pairs:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$ParamSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+  </span><span class="nx">ContainerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"DockerPester"</span><span class="w"> </span><span class="err">#</span><span class="nx">Name</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Container</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Test</span><span class="err">.</span><span class="w">
+  </span><span class="nx">Image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.8"</span><span class="w"> </span><span class="err">#</span><span class="nx">Image</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Container</span><span class="w">
+  </span><span class="nx">InputFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/kevin/code/PSHarmonize"</span><span class="err">#</span><span class="nx">Module</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">Folder</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">pass</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">Tests</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">them</span><span class="w">
+  </span><span class="nx">PathOnContainer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/var"</span><span class="w"> </span><span class="err">#</span><span class="nx">Path</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">want</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">container</span><span class="w">
+  </span><span class="nx">PathToTests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Tests"</span><span class="w"> </span><span class="err">#</span><span class="nx">Path</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="s1">'InputFolder'</span><span class="w"> </span><span class="nx">where</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">Tests</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">located</span><span class="w">
+  </span><span class="nx">PrerequisiteModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"PSHTML"</span><span class="w"> </span><span class="err">#</span><span class="nx">Pass</span><span class="w"> </span><span class="nx">Modules</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">prerequisites</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">download</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">gallery</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">container</span><span class="err">.</span><span class="w">
+  </span><span class="nx">Executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"LNX"</span><span class="w"> </span><span class="err">#</span><span class="nx">The</span><span class="w"> </span><span class="nx">executor</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">OS</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">Machine</span><span class="w"> </span><span class="err">-</span><span class="w"> </span><span class="nx">Docker</span><span class="w"> </span><span class="nx">host</span><span class="err">.</span><span class="w"> </span><span class="nx">If</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">Windows</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="s2">"WIN"</span><span class="w"> </span><span class="nx">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">MacOS</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">Linux</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="s2">"LNX"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</figure>
+
+<p>Each Parameter we define in the hashtable is shortly described with a comment on the same line. Make sure you’re in the right context for the Image you define here and the Executor matches your OS. Also make sure to change the ‘InputFolder’ to an actual project with Pestertests in them. ‘PathToTests’ is the Path in your Powershell Project Folder where your Tests are located.</p>
+
+<p>To run your first DockerPester run use the following code:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Invoke-DockerPester</span><span class="w"> </span><span class="err">@</span><span class="nx">ParamSet</span></code></pre>
+</figure>
+
+<p>So here we basically just splat the Parameters we defined in the Hash $ParamSet to ‘Invoke-DockerPester’.</p>
+
+<p>So what will that do. First it will spin up a Container with the Image we defined in our Hash. The ContainerName we set will be the name of that container. Then it will copy the Powershell Module Project Folder from your local Computer that you defined under ‘InputFolder’ to the path you defined in ‘PathOnContainer’ on the Container. After that it will start downloading the Prerequisite modules that you defined to download from the gallery and it will install the newest version of Pester and yes, the output on that is not sooooooo nice I will admit that, but hey, we all need room to grow right?</p>
+
+<p>After the installation of the modules it will start executing the Pester Tests. And when that’s done it will return the Passthru Object from Pester back to you.</p>
+
+<p>The Output you will see should look like this:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">PS</span><span class="w"> </span><span class="nx">/Users/kevin</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Invoke-DockerPester</span><span class="w"> </span><span class="err">@</span><span class="nx">ParamSet</span><span class="w">                                 
+</span><span class="nf">f6b8047075adc5ee491b772b9321e85bf0e628d9add2a1ff9f79ea254894227a</span><span class="w">
+</span><span class="nf">DockerPester</span><span class="w">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </span><span class="nf">Installing</span><span class="w"> </span><span class="nx">package</span><span class="w"> </span><span class="s1">'PSHTML'</span><span class="w">                                                        </span><span class="nx">Downloaded</span><span class="w"> </span><span class="nx">0.00</span><span class="w"> </span><span class="nx">MB</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">0.64</span><span class="w"> </span><span class="nx">MB.</span><span class="w">                                              </span><span class="p">[</span><span class="w">                                                                    </span><span class="p">]</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </span><span class="nx">Installing</span><span class="w"> </span><span class="nx">package</span><span class="w"> </span><span class="s1">'Pester'</span><span class="w">                                                        </span><span class="nx">Downloaded</span><span class="w"> </span><span class="nx">0.00</span><span class="w"> </span><span class="nx">MB</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">0.85</span><span class="w"> </span><span class="nx">MB.</span><span class="w">                                              </span><span class="p">[</span><span class="w">                                                                    </span><span class="p">]</span><span class="w">                                                                                                                                                                       </span><span class="nx">Installing</span><span class="w"> </span><span class="nx">package</span><span class="w"> </span><span class="s1">'Pester'</span><span class="w">                                                        </span><span class="nx">Process</span><span class="w"> </span><span class="nx">Package</span><span class="w"> </span><span class="nx">Manifest</span><span class="w">                                                        </span><span class="p">[</span><span class="kt">oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</span><span class="w">    </span><span class="p">]</span><span class="w">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </span><span class="nx">Pester</span><span class="w"> </span><span class="nx">v4.10.1</span><span class="w">
+</span><span class="nf">Executing</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="s1">'/var/PSHarmonize/Tests'</span><span class="w">
+
+</span><span class="nf">Executing</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="nx">/var/PSHarmonize/Tests/Functions.Letters.Tests.ps1</span><span class="w">
+
+  </span><span class="nf">Describing</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">]</span><span class="w"> </span><span class="nx">Testing</span><span class="w"> </span><span class="nx">Letter</span><span class="w"> </span><span class="nx">Functions</span><span class="w">
+
+    </span><span class="nf">Context</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">][</span><span class="kt">Letter</span><span class="p">]</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="nx">Without</span><span class="w"> </span><span class="nx">Parameters.</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">The</span><span class="w"> </span><span class="nx">Function</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">throw</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">Parameters.</span><span class="w"> </span><span class="nx">165ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'EnharmonicFlavour'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">18ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'IsPause'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">3ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'Length'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">39ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'Letter'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">17ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'NoteMapping'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">17ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'Numeral'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">12ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'Octave'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">11ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="nf">C</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">Contain</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Correct</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="s1">'Velocity'</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">Parameters</span><span class="w"> </span><span class="nx">10ms</span><span class="w">
+
+    </span><span class="nf">Context</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">][</span><span class="kt">Letter</span><span class="p">]</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="nx">Wit</span><span class="w"> </span><span class="nx">Parameters.</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">][</span><span class="kt">Letter</span><span class="p">]</span><span class="w"> </span><span class="nf">Octave</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">assignable</span><span class="w"> </span><span class="nx">14ms</span><span class="w">
+      </span><span class="p">[</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">][</span><span class="kt">Letter</span><span class="p">]</span><span class="w"> </span><span class="nf">Octave</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">assignable</span><span class="w"> </span><span class="nx">11ms</span><span class="w">
+
+    </span><span class="nf">Context</span><span class="w"> </span><span class="p">[</span><span class="kt">PSHarmonize</span><span class="p">][</span><span class="kt">Functions</span><span class="p">][</span><span class="kt">Letter</span><span class="p">]</span><span class="w"> </span><span class="nx">Chords</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">C</span></code></pre>
+</figure>
+
+<p>If you want to save the PassThru Object of your Tests to a variable use the following Code:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$PassThru</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Invoke-DockerPester</span><span class="w"> </span><span class="err">@</span><span class="nx">ParamSet</span></code></pre>
+</figure>
+
+<p>In there you will find all the filled Properties of your standart PassThru Object from Pester.</p>
+
+  </div><a class="u-url" href="/batesbase/Powershell/2020/02/19/DockerPester.md/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/batesbase/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">batesbase</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">batesbase</li><li><a class="u-email" href="mailto:kevin96bates@gmail.com">kevin96bates@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/bateskevin"><svg class="svg-icon"><use xlink:href="/batesbase/assets/minima-social-icons.svg#github"></use></svg> <span class="username">bateskevin</span></a></li><li><a href="https://www.twitter.com/_bateskevin"><svg class="svg-icon"><use xlink:href="/batesbase/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">_bateskevin</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This Blog is all Powershell. I&#39;ll share with you what I Learned  on my way as an Engineer and hopefully save you some time that  I wasted on researching stuff. :)</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
