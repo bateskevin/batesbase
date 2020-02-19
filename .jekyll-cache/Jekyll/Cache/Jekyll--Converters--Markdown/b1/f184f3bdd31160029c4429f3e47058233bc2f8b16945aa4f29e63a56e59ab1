@@ -1,4 +1,26 @@
-I"ig<h1 id="docker-pester---run-crossplatform-tests-locally">Docker Pester - Run crossplatform tests locally!</h1>
+I"�v<h1 id="docker-pester---run-crossplatform-tests-locally">Docker Pester - Run crossplatform tests locally!</h1>
+
+<p>Recently there have been some changes in my Backpack concerning the portable system that I carry with myself to perform my job. 
+I have had an HP laptop handed to me on my first day of work at my current company (about two years ago) and I actually had no problems
+whatsoever at the start. Now this Laptop lived for about 3/4 years before it decided to stop working. My Laptop would not turn on and I could not work for 1.5 days
+cause we had no spare laptops at the time.</p>
+
+<p>Now that was a bummer.. My company replaced my system with the same model and since I actually liked the Laptop I was handed in the first
+place I was excited to have another one of these. Another 3/4 years down the line the exact same thing happens. Again I’m unable to work for 1.5 days before my replacement arrives. Again it is the same model. Then I learned something interessting. My company does BYOD (Bring your own device) and they actually pay for that system. But as, almost, always with cool stuff there is a hook. The laptop my company hands out have a 2 year lease on them before you can have a new one. Very reasonable policy in my eyes and also I thought at the time that my lease would soon expire and I could order a new one.</p>
+
+<p>No…</p>
+
+<p>As I learned a little while after receiving my 3rd laptop (still same modell) I found out that my lease was reset both times I received a replacement and I thought that I would be stuck in an endless HP Laptop loop, where I would get a new one every 3/4 years.</p>
+
+<p>Now I’m in luck that I have good people above me that allowed me to ditch that HP misery (Not at all implying that’s the case for every HP Laptop!) and order myself my own System to be able to work on that. So I started thinking what I would like to use. It would have to perform well since I do developmemt on it and I also am fond of big and nice screens, since I work in a different spot nearly every day and I don’t always have the possibility for external screens. Ah and I code Powershell.</p>
+
+<p>Could I buy myself a Macbook and have a good time working on it mostly writing Powershell code? Powershell 7 is around the edge and crossplatform is available since v6 so that is kind of covered. VSCode is available.. What do I need more? Honestly I tried to inform myself to the best I could, but soon it got clear to me that I was going to get a Macbook.</p>
+
+<p>At the time I write this I have worked on my Macbook for one week now and I have to say I love it! I have noticed no shortcomings up until now and I have done some cool linux stuff on my machine! I have a Linux ansible lab on my Macbook for example. But the main thing I discovered for me this past few weeks was Docker.</p>
+
+<p>I know I’m late to the part, but I started to look at it and play around with it. My main interesst was actually to run Powershell on linux and see how that’s working out. But then it hit me. Run Pester tests on docker machines with powershell on them. You can completly destroy your container and there will be a new one up and running in a matter of seconds.</p>
+
+<p>I know it’s a simple idea and I by no means think for a second, that I’m the first one to come up with this, but still. So I started to write a Module.</p>
 
 <p>In this Blogpost you’ll learn how to run the Pester tests for your Powershell project on multiple operating systems locally.</p>
 
@@ -123,4 +145,16 @@ contains the following Key Value pairs:</p>
 </figure>
 
 <p>In there you will find all the filled Properties of your standart PassThru Object from Pester.</p>
+
+<h1 id="in-conclusion">In Conclusion</h1>
+
+<p>I had an HP laptop breaking all the time that pushed me to buy a Macbook for my Powershell job. That in exchange pushed me to try out some stuff on Linux which broadens my skillset and I found out I actually really like it! This brought me to docker and I had a lot of fun writing that module, which is far from finished :)</p>
+
+<p>Docker is awesome, Powershell is awesome!</p>
+
+<p>You can run Pester Tests in a docker container and retrieve the Passthru Object with <a href="https://github.com/bateskevin/DockerPester">DockerPester</a>.</p>
+
+<p>Cheers!</p>
+
+<p>Kevin</p>
 :ET
