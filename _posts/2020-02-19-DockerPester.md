@@ -26,7 +26,7 @@ Could I buy myself a Macbook and have a good time working on it mostly writing P
 
 At the time I write this I have worked on my Macbook for one week now and I have to say I love it! I have noticed no shortcomings up until now and I have done some cool linux stuff on my machine! I have a Linux ansible lab on my Macbook for example. But the main thing I discovered for me this past few weeks was Docker.
 
-I know I'm late to the part, but I started to look at it and play around with it. My main interesst was actually to run Powershell on linux and see how that's working out. But then it hit me. Run Pester tests on docker machines with powershell on them. You can completly destroy your container and there will be a new one up and running in a matter of seconds. 
+I know I'm late to the party, but I started to look at it and play around with it. My main interesst was actually to run Powershell on linux and see how that's working out. But then it hit me. Run Pester tests on docker machines with powershell on them. You can completly destroy your container and there will be a new one up and running in a matter of seconds. 
 
 I know it's a simple idea and I by no means think for a second, that I'm the first one to come up with this, but still. So I started to write a Module.
 
