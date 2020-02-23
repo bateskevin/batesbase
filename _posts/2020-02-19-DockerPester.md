@@ -162,6 +162,8 @@ Docker is awesome, Powershell is awesome!
 
 You can run Pester Tests in a docker container and retrieve the Passthru Object with [DockerPester](https://github.com/bateskevin/DockerPester).
 
+Check out the Second part of this Post: [How to set up DockerPester for your Project](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/)
+
 Cheers!
 
 Kevin

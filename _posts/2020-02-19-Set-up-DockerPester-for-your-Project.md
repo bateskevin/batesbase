@@ -8,8 +8,6 @@ permalink: Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/
 
 # Set up DockerPester for your Project
 
-Check out the Second part of this Post: [How to set up DockerPester for your Project](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/)
-
 In the [first Blogpost on DockerPester](https://bateskevin.github.io/batesbase/Powershell/2020/02/19/DockerPester.md/) I talked about how you can run Pester tests in containers with Powershell. Short version of that Post:
 
 1. Install Docker
