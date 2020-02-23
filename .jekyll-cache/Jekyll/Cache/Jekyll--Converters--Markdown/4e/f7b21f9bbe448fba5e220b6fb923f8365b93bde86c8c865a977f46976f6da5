@@ -1,0 +1,134 @@
+I"Z9<h1 id="set-up-dockerpester-for-your-project">Set up DockerPester for your Project</h1>
+
+<p>In the <a href="https://bateskevin.github.io/batesbase/Powershell/2020/02/19/DockerPester.md/">first Blogpost on DockerPester</a> I talked about how you can run Pester tests in containers with Powershell. Short version of that Post:</p>
+
+<ol>
+  <li>Install Docker</li>
+  <li>Install DockerPester</li>
+  <li>Run Invoke-DockerPester with a few params.</li>
+</ol>
+
+<p>that was basically it. You can run your Tests in a Container and get your Passthru Object back and look at you results. Now while this is fine, and this is the baisc functionality of this module, it does not really invite you to actually use it in your day to day coding life.</p>
+
+<p>So at the moment of writing this post there have been 3 Versions of a Prerelease on the gallery.</p>
+
+<h4 id="prerelease-010-alpha">Prerelease 0.1.0-alpha</h4>
+
+<p>In 0.1.0 I published the base functionality described in the first blog post linked above.</p>
+
+<h4 id="prerelease-020-apha">Prerelease 0.2.0-apha</h4>
+
+<p>In the second Prerelease I added a nice output. In the first Version it was really just about publishing the functionality, that anybody may test and feedback on it. In this Version I wanted to have a nice console output and more verbosity on what is currently happening, so troubleshooting while the code is failing is gonna be easier. So that is what was published here.</p>
+
+<h4 id="prerelease-030-alpha">Prerelease 0.3.0-alpha</h4>
+
+<p>Now the content of this Prerelease is what this post is going to be about. Here I added a way (just a few functions) to set up DockerPester for your Project in a persistent way. You set this up once and you can use the Same cmdlet “Invoke-DockerPester”, but instead of using all the Parameters (which did not change) you can use the new Parameter “Project”, pass your Project name and your tests will be run.</p>
+
+<p>To be perfectly honest, parts and bits of this functioality where already in the previous prerelease, but it was far from finished.</p>
+
+<h1 id="set-up-a-project">Set up a Project</h1>
+
+<p>So to set up a Project you will need to define some parameters. I usually define them in a hastable and then splat it to my command:</p>
+
+<p>So first define your Hash:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">InputFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/kevin/code/PSHarmonize”
+    Image = "</span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">com</span><span class="err">/</span><span class="nx">powershell</span><span class="err">:</span><span class="nx">7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">10</span><span class="err">”</span><span class="w">
+    </span><span class="nx">Context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default”
+    Executor = “LNX”
+}</span></code></pre>
+</figure>
+
+<p>And then Splat it to the ‘Add-DockerPesterProject’ commandlet:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Add-DockerPesterProject</span><span class="w"> </span><span class="err">@</span><span class="nx">Param</span></code></pre>
+</figure>
+
+<p>Now what are we passing here. The first Parameter ‘InputFolder’ is the path to out project locally. ‘Image’ is the Image that Docker will use to spin up the container. we define the Context, in case we are in a different Context while starting the run and set the Executor that is Coresponding with the OS of the Image of the Container Machine.</p>
+
+<p>This would look like this when performed in Powershell:</p>
+
+<p><img src="https://github.com/bateskevin/DockerPester/raw/master/IMG/AddDockerPesterProject.gif" alt="AddDockerPesterProject" /></p>
+
+<p>As you see to retrieve Information about your Project you can use:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Get-DockerPesterProject</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<h4 id="multiple-jobs">Multiple Jobs</h4>
+
+<p>You can do the process described above multiple times to add more jobs to your project. Use this for example to create multiple jobs with different Images. So let’s say we would want to test our code with alpine 3.10, but also with alpine.3.9. You just add it like this:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">InputFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/kevin/code/PSHarmonize”
+    Image = "</span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">com</span><span class="err">/</span><span class="nx">powershell</span><span class="err">:</span><span class="nx">7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">9</span><span class="err">”</span><span class="w">
+    </span><span class="nx">Context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default”
+    Executor = “LNX”
+}</span></code></pre>
+</figure>
+
+<p>And when you run ‘Get-DockerPesterProject -Name PSHarmonize’ again you get both jobs:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Image</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.10</span><span class="w">
+</span><span class="nf">Context</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nx">default</span><span class="w">
+</span><span class="nf">PrerequisiteModule</span><span class="w"> </span><span class="p">:</span><span class="w"> 
+</span><span class="nf">PathToTests</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">Tests</span><span class="w">
+</span><span class="nf">ContainerName</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="nx">DockerPester</span><span class="w">
+</span><span class="nf">Executor</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nx">LNX</span><span class="w">
+</span><span class="nf">InputFolder</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">/Users/kevin/code/PSHarmonize</span><span class="w">
+</span><span class="nf">PathOnContainer</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="nx">/var</span><span class="w">
+
+</span><span class="nf">Image</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.9</span><span class="w">
+</span><span class="nf">Context</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nx">default</span><span class="w">
+</span><span class="nf">PrerequisiteModule</span><span class="w"> </span><span class="p">:</span><span class="w"> 
+</span><span class="nf">PathToTests</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">Tests</span><span class="w">
+</span><span class="nf">ContainerName</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="nx">DockerPester</span><span class="w">
+</span><span class="nf">Executor</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nx">LNX</span><span class="w">
+</span><span class="nf">InputFolder</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">/Users/kevin/code/PSHarmonize</span><span class="w">
+</span><span class="nf">PathOnContainer</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="nx">/var</span></code></pre>
+</figure>
+
+<h1 id="run-dockerpester-for-your-project">Run DockerPester for your Project.</h1>
+
+<p>So as said at the start of this post once you’ve set up our project like described above you can run the following command to run all your defined jobs for your project:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Invoke-DockerPester</span><span class="w"> </span><span class="nt">-Project</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<p>This will run all of your defined jobs:</p>
+
+<p><img src="https://media.giphy.com/media/igIq9155M6eSmG0UWC/giphy.gif" alt="Run" /></p>
+
+<p>Ok that’s cool! Now the last thing left to do is to retrieve the Results of your Pester tests. To get back an Object with the Information of all of your last jobs use:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Get-LatestDockerPesterResults</span><span class="w"> </span><span class="nt">-Project</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<p>This will give you back an Array with Information about your Jobs, including the PassThru Object of each Job:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Name</span><span class="w">                           </span><span class="nx">Value</span><span class="w">
+</span><span class="nf">----</span><span class="w">                           </span><span class="nf">-----</span><span class="w">
+</span><span class="nx">PassThru</span><span class="w">                       </span><span class="p">@{</span><span class="nx">PassedCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">TotalCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">InconclusiveCount</span><span class="o">=</span><span class="nx">0</span><span class="err">;</span><span class="w"> </span><span class="nx">ScriptBlockFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">TagFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ExcludeTagF</span><span class="err">…</span><span class="w">
+</span><span class="nx">DateOfTest</span><span class="w">                     </span><span class="nx">20200223102733</span><span class="w">
+</span><span class="nx">Image</span><span class="w">                          </span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">compowershell7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">9</span><span class="w">
+</span><span class="nx">PassThru</span><span class="w">                       </span><span class="err">@{</span><span class="nx">PassedCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">TotalCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">InconclusiveCount</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ScriptBlockFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">TagFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ExcludeTagFilter</span><span class="o">=</span><span class="err">;…</span><span class="w">
+</span><span class="nx">DateOfTest</span><span class="w">                     </span><span class="nx">20200223102637</span><span class="w">
+</span><span class="nx">Image</span><span class="w">                          </span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">compowershell7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">10</span></code></pre>
+</figure>
+
+<p>And there you have it folks. You can run this over and over again and test your code on different Images. A cool Idea would be to display your results somehow. Maybe html or something in that direction would be cool. But the gist here is that you do this very easy set up once, and you can run as many tests with one very easy commands as you want.</p>
+
+<p>If you have any feedback on the project (which still is in a starting phase) please open Issues on <a href="https://github.com/bateskevin/DockerPester">Github</a> or reach out to me on Twitter or Slack.</p>
+
+<p>Cheers,
+Kevin</p>
+:ET

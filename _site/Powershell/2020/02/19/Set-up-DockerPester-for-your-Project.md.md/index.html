@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Set up DockerPester for your Project | batesbase</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Set up DockerPester for your Project" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Set up DockerPester for your Project" />
+<meta property="og:description" content="Set up DockerPester for your Project" />
+<link rel="canonical" href="/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/" />
+<meta property="og:url" content="/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/" />
+<meta property="og:site_name" content="batesbase" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-19T08:56:01+01:00" />
+<script type="application/ld+json">
+{"headline":"Set up DockerPester for your Project","dateModified":"2020-02-19T08:56:01+01:00","url":"/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/","datePublished":"2020-02-19T08:56:01+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/"},"description":"Set up DockerPester for your Project","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/batesbase/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/batesbase/feed.xml" title="batesbase" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/batesbase/">batesbase</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/batesbase/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Set up DockerPester for your Project</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-02-19T08:56:01+01:00" itemprop="datePublished">Feb 19, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="set-up-dockerpester-for-your-project">Set up DockerPester for your Project</h1>
+
+<p>In the <a href="https://bateskevin.github.io/batesbase/Powershell/2020/02/19/DockerPester.md/">first Blogpost on DockerPester</a> I talked about how you can run Pester tests in containers with Powershell. Short version of that Post:</p>
+
+<ol>
+  <li>Install Docker</li>
+  <li>Install DockerPester</li>
+  <li>Run Invoke-DockerPester with a few params.</li>
+</ol>
+
+<p>that was basically it. You can run your Tests in a Container and get your Passthru Object back and look at you results. Now while this is fine, and this is the baisc functionality of this module, it does not really invite you to actually use it in your day to day coding life.</p>
+
+<p>So at the moment of writing this post there have been 3 Versions of a Prerelease on the gallery.</p>
+
+<h4 id="prerelease-010-alpha">Prerelease 0.1.0-alpha</h4>
+
+<p>In 0.1.0 I published the base functionality described in the first blog post linked above.</p>
+
+<h4 id="prerelease-020-apha">Prerelease 0.2.0-apha</h4>
+
+<p>In the second Prerelease I added a nice output. In the first Version it was really just about publishing the functionality, that anybody may test and feedback on it. In this Version I wanted to have a nice console output and more verbosity on what is currently happening, so troubleshooting while the code is failing is gonna be easier. So that is what was published here.</p>
+
+<h4 id="prerelease-030-alpha">Prerelease 0.3.0-alpha</h4>
+
+<p>Now the content of this Prerelease is what this post is going to be about. Here I added a way (just a few functions) to set up DockerPester for your Project in a persistent way. You set this up once and you can use the Same cmdlet “Invoke-DockerPester”, but instead of using all the Parameters (which did not change) you can use the new Parameter “Project”, pass your Project name and your tests will be run.</p>
+
+<p>To be perfectly honest, parts and bits of this functioality where already in the previous prerelease, but it was far from finished.</p>
+
+<h1 id="set-up-a-project">Set up a Project</h1>
+
+<p>So to set up a Project you will need to define some parameters. I usually define them in a hastable and then splat it to my command:</p>
+
+<p>So first define your Hash:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">InputFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/kevin/code/PSHarmonize”
+    Image = "</span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">com</span><span class="err">/</span><span class="nx">powershell</span><span class="err">:</span><span class="nx">7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">10</span><span class="err">”</span><span class="w">
+    </span><span class="nx">Context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default”
+    Executor = “LNX”
+}</span></code></pre>
+</figure>
+
+<p>And then Splat it to the ‘Add-DockerPesterProject’ commandlet:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Add-DockerPesterProject</span><span class="w"> </span><span class="err">@</span><span class="nx">Param</span></code></pre>
+</figure>
+
+<p>Now what are we passing here. The first Parameter ‘InputFolder’ is the path to out project locally. ‘Image’ is the Image that Docker will use to spin up the container. we define the Context, in case we are in a different Context while starting the run and set the Executor that is Coresponding with the OS of the Image of the Container Machine.</p>
+
+<p>This would look like this when performed in Powershell:</p>
+
+<p><img src="https://github.com/bateskevin/DockerPester/raw/master/IMG/AddDockerPesterProject.gif" alt="AddDockerPesterProject" /></p>
+
+<p>As you see to retrieve Information about your Project you can use:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Get-DockerPesterProject</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<h4 id="multiple-jobs">Multiple Jobs</h4>
+
+<p>You can do the process described above multiple times to add more jobs to your project. Use this for example to create multiple jobs with different Images. So let’s say we would want to test our code with alpine 3.10, but also with alpine.3.9. You just add it like this:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">InputFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/kevin/code/PSHarmonize”
+    Image = "</span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">com</span><span class="err">/</span><span class="nx">powershell</span><span class="err">:</span><span class="nx">7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">9</span><span class="err">”</span><span class="w">
+    </span><span class="nx">Context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default”
+    Executor = “LNX”
+}</span></code></pre>
+</figure>
+
+<p>And when you run ‘Get-DockerPesterProject -Name PSHarmonize’ again you get both jobs:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Image</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.10</span><span class="w">
+</span><span class="nf">Context</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nx">default</span><span class="w">
+</span><span class="nf">PrerequisiteModule</span><span class="w"> </span><span class="p">:</span><span class="w"> 
+</span><span class="nf">PathToTests</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">Tests</span><span class="w">
+</span><span class="nf">ContainerName</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="nx">DockerPester</span><span class="w">
+</span><span class="nf">Executor</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nx">LNX</span><span class="w">
+</span><span class="nf">InputFolder</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">/Users/kevin/code/PSHarmonize</span><span class="w">
+</span><span class="nf">PathOnContainer</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="nx">/var</span><span class="w">
+
+</span><span class="nf">Image</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">mcr.microsoft.com/powershell:7.0.0-rc.2-alpine-3.9</span><span class="w">
+</span><span class="nf">Context</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="nx">default</span><span class="w">
+</span><span class="nf">PrerequisiteModule</span><span class="w"> </span><span class="p">:</span><span class="w"> 
+</span><span class="nf">PathToTests</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">Tests</span><span class="w">
+</span><span class="nf">ContainerName</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="nx">DockerPester</span><span class="w">
+</span><span class="nf">Executor</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nx">LNX</span><span class="w">
+</span><span class="nf">InputFolder</span><span class="w">        </span><span class="p">:</span><span class="w"> </span><span class="nx">/Users/kevin/code/PSHarmonize</span><span class="w">
+</span><span class="nf">PathOnContainer</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="nx">/var</span></code></pre>
+</figure>
+
+<h1 id="run-dockerpester-for-your-project">Run DockerPester for your Project.</h1>
+
+<p>So as said at the start of this post once you’ve set up our project like described above you can run the following command to run all your defined jobs for your project:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Invoke-DockerPester</span><span class="w"> </span><span class="nt">-Project</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<p>This will run all of your defined jobs:</p>
+
+<p><img src="https://media.giphy.com/media/igIq9155M6eSmG0UWC/giphy.gif" alt="Run" /></p>
+
+<p>Ok that’s cool! Now the last thing left to do is to retrieve the Results of your Pester tests. To get back an Object with the Information of all of your last jobs use:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Get-LatestDockerPesterResults</span><span class="w"> </span><span class="nt">-Project</span><span class="w"> </span><span class="nx">PSHarmonize</span></code></pre>
+</figure>
+
+<p>This will give you back an Array with Information about your Jobs, including the PassThru Object of each Job:</p>
+
+<figure class="highlight">
+  <pre><code class="language-powershell" data-lang="powershell"><span class="nf">Name</span><span class="w">                           </span><span class="nx">Value</span><span class="w">
+</span><span class="nf">----</span><span class="w">                           </span><span class="nf">-----</span><span class="w">
+</span><span class="nx">PassThru</span><span class="w">                       </span><span class="p">@{</span><span class="nx">PassedCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">TotalCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">InconclusiveCount</span><span class="o">=</span><span class="nx">0</span><span class="err">;</span><span class="w"> </span><span class="nx">ScriptBlockFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">TagFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ExcludeTagF</span><span class="err">…</span><span class="w">
+</span><span class="nx">DateOfTest</span><span class="w">                     </span><span class="nx">20200223102733</span><span class="w">
+</span><span class="nx">Image</span><span class="w">                          </span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">compowershell7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">9</span><span class="w">
+</span><span class="nx">PassThru</span><span class="w">                       </span><span class="err">@{</span><span class="nx">PassedCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">TotalCount</span><span class="o">=</span><span class="nx">479</span><span class="err">;</span><span class="w"> </span><span class="nx">InconclusiveCount</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ScriptBlockFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">TagFilter</span><span class="o">=</span><span class="err">;</span><span class="w"> </span><span class="nx">ExcludeTagFilter</span><span class="o">=</span><span class="err">;…</span><span class="w">
+</span><span class="nx">DateOfTest</span><span class="w">                     </span><span class="nx">20200223102637</span><span class="w">
+</span><span class="nx">Image</span><span class="w">                          </span><span class="nx">mcr</span><span class="err">.</span><span class="nx">microsoft</span><span class="err">.</span><span class="nx">compowershell7</span><span class="err">.</span><span class="nx">0</span><span class="err">.</span><span class="nx">0</span><span class="err">-</span><span class="nx">rc</span><span class="err">.</span><span class="nx">2</span><span class="err">-</span><span class="nx">alpine</span><span class="err">-</span><span class="nx">3</span><span class="err">.</span><span class="nx">10</span></code></pre>
+</figure>
+
+<p>And there you have it folks. You can run this over and over again and test your code on different Images. A cool Idea would be to display your results somehow. Maybe html or something in that direction would be cool. But the gist here is that you do this very easy set up once, and you can run as many tests with one very easy commands as you want.</p>
+
+<p>If you have any feedback on the project (which still is in a starting phase) please open Issues on <a href="https://github.com/bateskevin/DockerPester">Github</a> or reach out to me on Twitter or Slack.</p>
+
+<p>Cheers,
+Kevin</p>
+
+  </div><a class="u-url" href="/batesbase/Powershell/2020/02/19/Set-up-DockerPester-for-your-Project.md.md/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/batesbase/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">batesbase</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">batesbase</li><li><a class="u-email" href="mailto:kevin96bates@gmail.com">kevin96bates@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/bateskevin"><svg class="svg-icon"><use xlink:href="/batesbase/assets/minima-social-icons.svg#github"></use></svg> <span class="username">bateskevin</span></a></li><li><a href="https://www.twitter.com/_bateskevin"><svg class="svg-icon"><use xlink:href="/batesbase/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">_bateskevin</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This Blog is all Powershell. I&#39;ll share with you what I Learned  on my way as an Engineer and hopefully save you some time that  I wasted on researching stuff. :)</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
